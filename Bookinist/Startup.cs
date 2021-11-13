@@ -1,5 +1,10 @@
+using Bookinist.Context;
+using Bookinist.Models.Account;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +27,37 @@ namespace Bookinist
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<BookinistContext>(option => {
+                option.UseSqlServer(Configuration.GetConnectionString("Default")).UseLazyLoadingProxies();
+            });
+            services.AddIdentity<User, IdentityRole>(option =>
+             {
+                 option.User.AllowedUserNameCharacters = null;
+             }).AddRoleManager<RoleManager<IdentityRole>>()
+            .AddUserManager<UserManager<User>>()
+            .AddEntityFrameworkStores<BookinistContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+            services.AddAuthorization();
+
+            services.Configure<IdentityOptions>(option =>
+            {
+                option.Password.RequireDigit = true;
+                option.Password.RequireLowercase = false;
+                option.Password.RequireUppercase = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequiredLength = 6;
+                option.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(option =>
+            {
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                option.SlidingExpiration = true;
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -36,6 +72,7 @@ namespace Bookinist
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
