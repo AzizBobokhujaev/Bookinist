@@ -1,5 +1,6 @@
 using Bookinist.Context;
 using Bookinist.Models.Account;
+using Bookinist.Models.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
