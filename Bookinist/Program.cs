@@ -1,5 +1,10 @@
+using Bookinist.Context;
+using Bookinist.Models.Entity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,9 +16,30 @@ namespace Bookinist
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host =  CreateHostBuilder(args).Build();
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            try
+            {
+                var context = services.GetRequiredService<BookinistContext>();
+                var userManager = services.GetRequiredService<UserManager<User>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+                await context.Database.MigrateAsync();
+
+                await ContextHelper.Seeding(context, userManager, roleManager);
+
+                logger.LogInformation("Migrate succesful");
+
+            }
+            catch ( Exception ex)
+            {
+                logger.LogError(ex.Message);
+            }
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

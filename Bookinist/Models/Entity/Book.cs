@@ -19,11 +19,9 @@ namespace Bookinist.Models.Entity
         public int CategoryId { get; set; }
         public string ShortDesc { get; set; }
         public string LongDesc { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
-
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 

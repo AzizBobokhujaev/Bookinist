@@ -10,11 +10,11 @@ namespace Bookinist.Context
 {
     public static class ContextHelper
     {
-        public static async Task Seeding(BookinistContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task Seeding(BookinistContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             if (!roleManager.Roles.Where(p=>p.NormalizedName.Equals("Admin")).Any())
             {
-                var adminRole = new IdentityRole
+                var adminRole = new IdentityRole<int>
                 {
                     Name = "Admin",
                     NormalizedName = "ADMIN"

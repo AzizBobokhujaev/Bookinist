@@ -31,10 +31,10 @@ namespace Bookinist
             services.AddDbContext<BookinistContext>(option => {
                 option.UseSqlServer(Configuration.GetConnectionString("Default")).UseLazyLoadingProxies();
             });
-            services.AddIdentity<User, IdentityRole>(option =>
+            services.AddIdentity<User, IdentityRole<int>>(option =>
              {
                  option.User.AllowedUserNameCharacters = null;
-             }).AddRoleManager<RoleManager<IdentityRole>>()
+             }).AddRoleManager<RoleManager<IdentityRole<int>>>()
             .AddUserManager<UserManager<User>>()
             .AddEntityFrameworkStores<BookinistContext>()
             .AddDefaultTokenProviders();

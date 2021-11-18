@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Bookinist.Context
 {
-    public class BookinistContext : IdentityDbContext<User>
+    public class BookinistContext : IdentityDbContext<User,IdentityRole<int>,int>
     {
         public BookinistContext(DbContextOptions options) : base(options)
         {
@@ -30,12 +30,12 @@ namespace Bookinist.Context
             base.OnModelCreating(builder);
 
             builder.Entity<User>(entity => entity.ToTable("Users"));
-            builder.Entity<IdentityRole>(e => e.ToTable("Roles"));
-            builder.Entity<IdentityUserRole<string>>(e => e.ToTable("UserRoles"));
-            builder.Entity<IdentityUserClaim<string>>(e => e.ToTable("UserClaims"));
-            builder.Entity<IdentityUserLogin<string>>(e => e.ToTable("UserLogins"));
-            builder.Entity<IdentityUserToken<string>>(e => e.ToTable("UserTokens"));
-            builder.Entity<IdentityRoleClaim<string>>(e => e.ToTable("RoleClaims"));
+            builder.Entity<IdentityRole<int>>(entity => entity.ToTable("Roles"));
+            builder.Entity<IdentityUserRole<int>>(entity => entity.ToTable("UserRoles"));
+            builder.Entity<IdentityUserClaim<int>>(entity => entity.ToTable("UserClaims"));
+            builder.Entity<IdentityUserLogin<int>>(entity => entity.ToTable("UserLogins"));
+            builder.Entity<IdentityUserToken<int>>(entity => entity.ToTable("UserTokens"));
+            builder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable("RoleClaims"));
 
           
         }

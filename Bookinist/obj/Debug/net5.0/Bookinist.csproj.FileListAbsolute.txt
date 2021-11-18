@@ -434,3 +434,5 @@ D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Bookinist.dll
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\ref\Bookinist.dll
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Bookinist.pdb
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Bookinist.genruntimeconfig.cache
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs

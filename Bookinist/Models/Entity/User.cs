@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bookinist.Models.Entity
 {
-    public class User:IdentityUser
+    public class User:IdentityUser<int>
     {
         public decimal Balance { get; set; }
 
