@@ -1,4 +1,5 @@
-﻿using Bookinist.Models.Entity;
+﻿using Bookinist.Models.DTO;
+using Bookinist.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
-﻿@model Bookinist.Models.Account.LoginDTO
+﻿@model Bookinist.Models.DTO.LoginDTO
 
-<div id="wrapper" class="wrap-login" style="text-align: -webkit-center">
+<div id="wrapper" class="wrap-login" style="text-align: -webkit-center;">
     <div class="card col-md-5">
         <div class="card-body">
             <div class="card-content p-2">
@@ -8,7 +8,8 @@
                     <img src=""/>
                 </div>
                 <div class="card-title text-uppercase text-center py-3">Вход</div>
-                <form asp-action="Login" asp-controller="Account" asp-antiforgery="true" method="post">
+                <form asp-action="Login" asp-controller="Account" asp-antifor03
+                      gery="true" method="post">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="UserName" class="sr-only"></label>

@@ -1,6 +1,7 @@
 using Bookinist.Context;
-using Bookinist.Models.Account;
+using Bookinist.Models.DTO;
 using Bookinist.Models.Entity;
+using Bookinist.Services.Book;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,7 +46,7 @@ namespace Bookinist
 
             services.Configure<IdentityOptions>(option =>
             {
-                option.Password.RequireDigit = true;
+                option.Password.RequireDigit = false;
                 option.Password.RequireLowercase = false;
                 option.Password.RequireUppercase = false;
                 option.Password.RequireNonAlphanumeric = false;
@@ -59,7 +60,12 @@ namespace Bookinist
                 option.SlidingExpiration = true;
             });
 
+            
+
             services.AddControllersWithViews();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<BookService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +84,7 @@ namespace Bookinist
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

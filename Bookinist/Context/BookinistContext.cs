@@ -1,4 +1,4 @@
-﻿using Bookinist.Models.Account;
+﻿using Bookinist.Models.DTO;
 using Bookinist.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookinist.Models.Account
+namespace Bookinist.Models.DTO
 {
     public class RegisterDTO
     {

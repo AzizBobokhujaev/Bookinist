@@ -6,10 +6,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookinist.Models.Entity
+namespace Bookinist.Models.DTO
 {
     public class BookDTO
     {
+        //daadskfjdkg
         public int Id { get; set; }
         [Display(Name = "Имя книги")]
         [Required]
@@ -34,12 +35,10 @@ namespace Bookinist.Models.Entity
         public int UserId { get; set; }
         public DateTime CreatedAt { get; set; }
         public string ImageName { get; set; }
-        [Display(Name ="Image")]
+        [Display(Name = "Выберите картинку:")]
         public IFormFile ImageFile { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
         public string UserName { get; set; }
-
-
     }
 }

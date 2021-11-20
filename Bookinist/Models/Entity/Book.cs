@@ -1,4 +1,4 @@
-﻿using Bookinist.Models.Account;
+﻿using Bookinist.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,5 +27,6 @@ namespace Bookinist.Models.Entity
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
+        
     }
 }

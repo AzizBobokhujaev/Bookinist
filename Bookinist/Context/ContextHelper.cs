@@ -1,4 +1,4 @@
-﻿using Bookinist.Models.Account;
+﻿using Bookinist.Models.DTO;
 using Bookinist.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -50,6 +50,7 @@ namespace Bookinist.Context
                         new Category { Id = 7, Name = "Юмор"},
                         new Category { Id = 8, Name = "Справочная книга"}
                     };
+                    await context.Categories.AddRangeAsync(categories);
                 }
 
             }

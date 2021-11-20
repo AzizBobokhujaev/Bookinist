@@ -1,4 +1,4 @@
-﻿using Bookinist.Models.Account;
+﻿using Bookinist.Models.DTO;
 using Bookinist.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +27,7 @@ namespace Bookinist.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Login(LoginDTO model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
@@ -56,6 +57,7 @@ namespace Bookinist.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
+                Balance = 1000
             },model.Password);
             if (!result.Succeeded)
             {
@@ -67,7 +69,6 @@ namespace Bookinist.Controllers
             }
             return RedirectToAction("Login");
         }
-
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
