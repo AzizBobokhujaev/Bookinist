@@ -57,6 +57,7 @@ namespace Bookinist.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
+                PhoneNumber=model.PhoneNumber,
                 Balance = 1000
             },model.Password);
             if (!result.Succeeded)

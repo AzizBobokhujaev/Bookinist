@@ -16,6 +16,9 @@ namespace Bookinist.Models.DTO
         [Display(Name = "Почта")]
         public string Email { get; set; }
         [Required]
+        [Display(Name ="Номер телефона")]
+        public string PhoneNumber { get; set; }
+        [Required]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
         [Display(Name = "Подтверждение пароля")]

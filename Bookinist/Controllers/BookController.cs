@@ -20,50 +20,25 @@ namespace Bookinist.Controllers
     public class BookController:Controller
     {
         private readonly BookinistContext _bookinistContext;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly BookService _bookService;
 
-        public BookController(BookinistContext bookinistContext, IWebHostEnvironment webHostEnvironment, BookService bookService)
+        public BookController(BookinistContext bookinistContext)
         {
             _bookinistContext = bookinistContext;
-            _webHostEnvironment = webHostEnvironment;
-            _bookService = bookService;
-        }
-
-        [Authorize]
-        [NonAction]
-        private async Task<string> CreateImage(IFormFile imageFile)
-        {
-            if (imageFile == null) return null;
-
-            var rootPath = _webHostEnvironment.WebRootPath;
-            var filename = Path.GetFileNameWithoutExtension(imageFile.FileName); //02animalpicture
-            var fileExtension = Path.GetExtension(imageFile.FileName); //.jpeg
-            var finalFileName = $"{filename}_{DateTime.Now.ToString("yyMMddHHmmssff")}{fileExtension}";
-            var filePath = Path.Combine(rootPath, "images", finalFileName);
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await imageFile.CopyToAsync(fileStream);
-            }
-            return finalFileName;
+            
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var bookDTO = new BookDTO();
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var categories = await _bookinistContext.Categories.Select(p => new SelectListItem
+            var book = new BookDTO
             {
-                Value = p.Id.ToString(),
-                Text = p.Name
-            }).ToListAsync();
+                Categories = await _bookinistContext
+                    .Categories
+                    .Select(p=> new SelectListItem { Value = p.Id.ToString(),Text =p.Name}).ToListAsync()
+            };
 
-            bookDTO.Categories = categories;
-
-            return View(bookDTO);
+            return View(book);
         }
         [HttpPost]
         [Authorize]
@@ -71,13 +46,10 @@ namespace Bookinist.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Categories = await _bookinistContext
+                    .Categories
+                    .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name }).ToListAsync();
                 return View(model);
-            }
-
-            string finalFileName = null;
-            if (model.ImageFile != null)
-            {
-                finalFileName = await CreateImage(model.ImageFile);
             }
 
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -87,15 +59,16 @@ namespace Bookinist.Controllers
                 Name = model.Name,
                 Author = model.Author,
                 Price = model.Price,
-                Image = finalFileName,
                 CategoryId = model.CategoryId,
                 ShortDesc = model.ShortDesc,
                 LongDesc = model.LongDesc,
                 UserId = int.Parse(currentUserId),
                 CreatedAt = DateTime.Now
             };
+
             _bookinistContext.Books.Add(book);
             await _bookinistContext.SaveChangesAsync();
+
 
             return RedirectToAction("Index", "Home");
         }
@@ -104,15 +77,55 @@ namespace Bookinist.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var book = await _bookService.GetById(id);
-            return View(book);
+            var book = await _bookinistContext.Books.FindAsync(id);
+            if (book==null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result = new BookDTO
+            {   
+                Id = book.Id,
+                Name = book.Name,
+                Author = book.Author,
+                Price = book.Price,
+                ShortDesc = book.ShortDesc,
+                LongDesc = book.LongDesc,
+                UserId = book.UserId,
+                CategoryId = book.CategoryId,
+                Categories = await _bookinistContext.Categories
+                    .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name }).ToListAsync()
+            };
+            return View(result);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> Edit(BookDTO model)
-        //{
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(BookDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await _bookinistContext.Categories
+                .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name }).ToListAsync();
+                return View(model);
+            }
 
-        //}
+            var book = await _bookinistContext.Books.FindAsync(model.Id);
+            if (book == null)
+            {
+                return RedirectToAction("Index", "Index");
+            }
+
+            book.Name = model.Name;
+            book.Author = model.Author;
+            book.Price = model.Price;
+            book.ShortDesc = model.ShortDesc;
+            book.LongDesc = model.LongDesc;
+            book.CategoryId = model.CategoryId;
+            book.UserId = model.UserId;
+
+            await _bookinistContext.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -37,6 +37,17 @@ namespace Bookinist.Context
             builder.Entity<IdentityUserToken<int>>(entity => entity.ToTable("UserTokens"));
             builder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable("RoleClaims"));
 
+            builder.Entity<Category>().HasData
+                (
+                    new Category { Id = 1, Name = "Детектив" },
+                        new Category { Id = 2, Name = "Фантастика" },
+                        new Category { Id = 3, Name = "Приключения" },
+                        new Category { Id = 4, Name = "Роман" },
+                        new Category { Id = 5, Name = "Научная книга" },
+                        new Category { Id = 6, Name = "Фольклор" },
+                        new Category { Id = 7, Name = "Юмор" },
+                        new Category { Id = 8, Name = "Справочная книга" }
+                );
           
         }
     }
