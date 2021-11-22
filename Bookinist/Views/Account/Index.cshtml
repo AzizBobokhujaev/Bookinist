@@ -1,0 +1,29 @@
+﻿@model List<Bookinist.Models.Entity.User>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>PhoneNumber</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <td>@account.Id</td>
+                <td>@account.UserName</td>
+                <td>@account.Balance</td>
+                <td>@account.PhoneNumber</td>
+                <td>@account.Email</td>
+                <td><a class="btn btn-info" href="~/Account/Edit?id=@account.Id">Edit</a></td>
+                <td><a class="btn btn-danger" href="~/Account/Delete?id=@account.Id">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

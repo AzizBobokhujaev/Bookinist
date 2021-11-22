@@ -10,7 +10,7 @@ namespace Bookinist.Models.DTO
 {
     public class BookDTO
     {
-        //daadskfjdkg
+        
         public int Id { get; set; }
         [Display(Name = "Имя книги")]
         [Required]

@@ -438,3 +438,6 @@ D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Accou
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\Create.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\Edit.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\Index.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Index.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Edit.cshtml.g.cs

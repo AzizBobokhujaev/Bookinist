@@ -11,6 +11,7 @@ namespace Bookinist.Models.DTO
         [Required]
         [Display(Name = "Логин")]
         public string UserName { get; set; }
+        public string UserRole { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Почта")]

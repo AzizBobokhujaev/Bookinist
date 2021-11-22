@@ -1,0 +1,35 @@
+﻿@model List<Bookinist.Models.DTO.BookDTO>
+<br />
+<h1 style="display:flex; justify-content:center; align-items:center">Books</h1>
+<br />
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>BookName</th>
+            <th>AuthorName</th>
+            <th>Price</th>
+            <th>ShortDescreption</th>
+            <th>Category</th>
+            <th>OwnerName</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+        <tr>
+            <td>@book.Id</td>
+            <td>@book.Name</td>
+            <td>@book.Author</td>
+            <td>@book.Price</td>
+            <td>@book.ShortDesc</td>
+            <td>@book.CategoryName</td>
+            <th>@book.UserName</th>
+            <td><a class="btn btn-info" href="~/Book/Edit?id=@book.Id">Edit</a></td>
+            <td><a class="btn btn-danger" href="~/Book/Delete?id=@book.Id">Delete</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

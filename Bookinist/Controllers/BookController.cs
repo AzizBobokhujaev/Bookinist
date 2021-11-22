@@ -13,7 +13,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace Bookinist.Controllers
 {
@@ -70,7 +72,7 @@ namespace Bookinist.Controllers
             await _bookinistContext.SaveChangesAsync();
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -80,7 +82,7 @@ namespace Bookinist.Controllers
             var book = await _bookinistContext.Books.FindAsync(id);
             if (book==null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
             var result = new BookDTO
             {   
@@ -100,7 +102,7 @@ namespace Bookinist.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(BookDTO model)
+        public async Task<IActionResult> Edit(BookDTO model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
@@ -112,7 +114,7 @@ namespace Bookinist.Controllers
             var book = await _bookinistContext.Books.FindAsync(model.Id);
             if (book == null)
             {
-                return RedirectToAction("Index", "Index");
+                return RedirectToAction("Index");
             }
 
             book.Name = model.Name;
@@ -121,11 +123,52 @@ namespace Bookinist.Controllers
             book.ShortDesc = model.ShortDesc;
             book.LongDesc = model.LongDesc;
             book.CategoryId = model.CategoryId;
-            book.UserId = model.UserId;
 
+            await _bookinistContext.SaveChangesAsync(token);
+
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var book = await _bookinistContext.Books.FindAsync(id);
+            if (book == null)
+            {
+                RedirectToAction("Privacy","Home");
+            }
+            _bookinistContext.Remove(book);
             await _bookinistContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
-            return RedirectToAction("Index", "Home");
+        public async Task<IActionResult> Index(int categoryId)
+        {
+            var result = _bookinistContext.Books.AsQueryable();
+
+            if (categoryId>0)
+            {
+                result = result.Where(p => p.CategoryId == categoryId).AsQueryable();
+            }
+
+            var bookList = new List<BookDTO>();
+            foreach (var book in await result.ToListAsync())
+            {
+                bookList.Add(new BookDTO
+                {
+                    Id = book.Id,
+                    Name = book.Name,
+                    Author = book.Author,
+                    Price = book.Price,
+                    ShortDesc = book.ShortDesc,
+                    LongDesc = book.LongDesc,
+                    CategoryId = book.CategoryId,
+                    CategoryName = book.Category.Name,
+                    UserId = book.UserId,
+                    UserName = book.User.UserName
+                });
+            }
+            return View(bookList);
+
         }
     }
 }
