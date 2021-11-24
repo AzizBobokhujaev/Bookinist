@@ -419,9 +419,6 @@ D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\scopedcss\bundle\
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Bookinist.TagHelpers.input.cache
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Bookinist.TagHelpers.output.cache
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Bookinist.RazorCoreGenerate.cache
-D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
-D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
@@ -441,3 +438,5 @@ D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\Index.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Index.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Edit.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\Home.cshtml.g.cs

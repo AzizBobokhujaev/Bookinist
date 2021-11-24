@@ -48,7 +48,7 @@ namespace Bookinist.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Book");
+            return RedirectToAction("Home", "Book");
         }
 
         [HttpGet]
@@ -79,6 +79,10 @@ namespace Bookinist.Controllers
                     ModelState.AddModelError(error.Code, error.Description);
                 }
                 return View(model);
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(await _userManager.FindByEmailAsync(model.Email), "User");
             }
             return RedirectToAction("Login");
         }

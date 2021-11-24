@@ -28,6 +28,32 @@ namespace Bookinist.Controllers
             _bookinistContext = bookinistContext;
             
         }
+        [HttpGet]
+        public async Task<IActionResult> Home()
+        {
+            var books = await GetAll();
+            return View(books);
+        }
+        [NonAction]
+        public async Task<List<BookDTO>> GetAll()
+        {
+            var book = await _bookinistContext.Books.Select(p => new BookDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Author = p.Author,
+                Price = p.Price,
+                ShortDesc = p.ShortDesc,
+                LongDesc = p.LongDesc,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                CreatedAt = p.CreatedAt,
+                UpdatedAt = p.UpdatedAt
+            }).ToListAsync();
+            return book;
+        }
 
         [HttpGet]
         [Authorize]
@@ -72,7 +98,7 @@ namespace Bookinist.Controllers
             await _bookinistContext.SaveChangesAsync();
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Home");
         }
 
         [HttpGet]
@@ -82,7 +108,7 @@ namespace Bookinist.Controllers
             var book = await _bookinistContext.Books.FindAsync(id);
             if (book==null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Home");
             }
             var result = new BookDTO
             {   
@@ -114,7 +140,7 @@ namespace Bookinist.Controllers
             var book = await _bookinistContext.Books.FindAsync(model.Id);
             if (book == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Home");
             }
 
             book.Name = model.Name;
@@ -126,7 +152,7 @@ namespace Bookinist.Controllers
 
             await _bookinistContext.SaveChangesAsync(token);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Home");
         }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
@@ -134,11 +160,11 @@ namespace Bookinist.Controllers
             var book = await _bookinistContext.Books.FindAsync(id);
             if (book == null)
             {
-                RedirectToAction("Privacy","Home");
+                RedirectToAction("Home");
             }
             _bookinistContext.Remove(book);
             await _bookinistContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Home");
         }
 
         public async Task<IActionResult> Index(int categoryId)

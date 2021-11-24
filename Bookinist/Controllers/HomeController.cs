@@ -19,10 +19,7 @@ namespace Bookinist.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
         //[Authorize(Roles ="Admin")]
         public IActionResult Privacy()
         {

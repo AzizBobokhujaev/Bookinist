@@ -1,0 +1,25 @@
+﻿@model List<Bookinist.Models.DTO.BookDTO>
+@{
+    ViewData["Title"] = "Bookinist Home";
+}
+<br />
+<div class="row">
+    @foreach (var book in Model)
+    {
+        //var routeDate = new Dictionary<string, string>()
+        //{
+        //    {"id",book.Id.ToString() },
+        //    {"CategoryId",book.CategoryId.ToString() }
+        //};
+        <div class="col-md">
+            <div class="card bg-dark" style="width:18rem;padding:10px">
+                <div class="card-body">
+                    <h4 class="card-title text-white">@book.Name</h4>
+                    <h5 class="card-text text-white">@book.Author</h5>
+                    <p class="card-text text-white">@book.ShortDesc</p>
+                    <p class="card-text text-white">@book.Price</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

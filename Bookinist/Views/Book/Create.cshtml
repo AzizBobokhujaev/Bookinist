@@ -1,8 +1,8 @@
 ﻿@model Bookinist.Models.DTO.BookDTO
-
-<div class="card" >
+<br />
+<div class="card" style="background-color: rgb(52,58,64);" >
     <div class="card-header">
-        <div class="card-title">
+        <div class="card-title" style="color:white">
             Добавить новую книгу
         </div>
     </div>
@@ -11,27 +11,27 @@
             <div asp-validation-summary="All"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name"></label>
+                <label asp-for="Name" style="color:white"></label>
                 <input asp-for="Name" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Author"></label>
+                <label asp-for="Author" style="color:white"></label>
                 <input asp-for="Author" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Price"></label>
+                <label asp-for="Price" style="color:white"></label>
                 <input asp-for="Price" class="form-control" type="number"/>
             </div>
             <div class="form-group">
-                <label asp-for="ShortDesc"></label>
+                <label asp-for="ShortDesc" style="color:white"></label>
                 <input asp-for="ShortDesc" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="LongDesc"></label>
+                <label asp-for="LongDesc" style="color:white"></label>
                 <textarea asp-for="LongDesc" class="form-control" aria-label="With textarea"></textarea>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId"></label>
+                <label asp-for="CategoryId" style="color:white"></label>
                 <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control"></select>
             </div>
             <button type="submit" class="btn btn-primary">Сохранить</button>

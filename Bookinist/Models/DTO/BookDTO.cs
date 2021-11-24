@@ -24,7 +24,7 @@ namespace Bookinist.Models.DTO
         [Display(Name = "Краткое описание ")]
         [Required]
         public string ShortDesc { get; set; }
-        [Display(Name = "Полное описание")]
+        [Display(Name = "Подробное описание")]
         [Required]
         public string LongDesc { get; set; }
         [Display(Name = "Категория")]
