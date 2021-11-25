@@ -440,3 +440,4 @@ D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Accou
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Account\Edit.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\Home.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\GetMyBooks.cshtml.g.cs

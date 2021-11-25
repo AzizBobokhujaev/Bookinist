@@ -20,6 +20,7 @@ namespace Bookinist.Models.Entity
         public int CategoryId { get; set; }
         public string ShortDesc { get; set; }
         public string LongDesc { get; set; }
+        public bool Status { get; set; }
         public int UserId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

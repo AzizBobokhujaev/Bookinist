@@ -34,6 +34,35 @@ namespace Bookinist.Controllers
             var books = await GetAll();
             return View(books);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetMyBooks()
+        {
+            var books = await GetMyBook();
+            
+            return View(books);
+
+        }
+        [NonAction]
+        public async Task<List<BookDTO>> GetMyBook()
+        {
+            var book = await _bookinistContext.Books.Select(p => new BookDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Author = p.Author,
+                Price = p.Price,
+                ShortDesc = p.ShortDesc,
+                LongDesc = p.LongDesc,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                Status = p.Status,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                CreatedAt = p.CreatedAt,
+                UpdatedAt = p.UpdatedAt
+            }).Where(p =>  p.UserName == User.Identity.Name).ToListAsync();
+            return book;
+        }
         [NonAction]
         public async Task<List<BookDTO>> GetAll()
         {
@@ -47,11 +76,12 @@ namespace Bookinist.Controllers
                 LongDesc = p.LongDesc,
                 CategoryId = p.CategoryId,
                 CategoryName = p.Category.Name,
+                Status = p.Status,
                 UserId = p.UserId,
                 UserName = p.User.UserName,
                 CreatedAt = p.CreatedAt,
                 UpdatedAt = p.UpdatedAt
-            }).ToListAsync();
+            }).Where(p=>p.Status==true).ToListAsync();
             return book;
         }
 
@@ -90,6 +120,7 @@ namespace Bookinist.Controllers
                 CategoryId = model.CategoryId,
                 ShortDesc = model.ShortDesc,
                 LongDesc = model.LongDesc,
+                Status = false,
                 UserId = int.Parse(currentUserId),
                 CreatedAt = DateTime.Now
             };
@@ -119,6 +150,7 @@ namespace Bookinist.Controllers
                 ShortDesc = book.ShortDesc,
                 LongDesc = book.LongDesc,
                 UserId = book.UserId,
+                Status = book.Status,
                 CategoryId = book.CategoryId,
                 Categories = await _bookinistContext.Categories
                     .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name }).ToListAsync()
@@ -149,6 +181,8 @@ namespace Bookinist.Controllers
             book.ShortDesc = model.ShortDesc;
             book.LongDesc = model.LongDesc;
             book.CategoryId = model.CategoryId;
+            book.Status = model.Status;
+            book.UpdatedAt = DateTime.Now;
 
             await _bookinistContext.SaveChangesAsync(token);
 
@@ -166,35 +200,33 @@ namespace Bookinist.Controllers
             await _bookinistContext.SaveChangesAsync();
             return RedirectToAction("Home");
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index(int categoryId)
         {
-            var result = _bookinistContext.Books.AsQueryable();
-
-            if (categoryId>0)
-            {
-                result = result.Where(p => p.CategoryId == categoryId).AsQueryable();
-            }
-
-            var bookList = new List<BookDTO>();
-            foreach (var book in await result.ToListAsync())
-            {
-                bookList.Add(new BookDTO
-                {
-                    Id = book.Id,
-                    Name = book.Name,
-                    Author = book.Author,
-                    Price = book.Price,
-                    ShortDesc = book.ShortDesc,
-                    LongDesc = book.LongDesc,
-                    CategoryId = book.CategoryId,
-                    CategoryName = book.Category.Name,
-                    UserId = book.UserId,
-                    UserName = book.User.UserName
-                });
-            }
-            return View(bookList);
-
+            var books = await GetForView();
+            return View(books);
         }
+        [NonAction]
+        public async Task<List<BookDTO>> GetForView()
+        {
+            var book = await _bookinistContext.Books.Select(p => new BookDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Author = p.Author,
+                Price = p.Price,
+                ShortDesc = p.ShortDesc,
+                LongDesc = p.LongDesc,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                Status = p.Status,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                CreatedAt = p.CreatedAt,
+                UpdatedAt = p.UpdatedAt
+            }).ToListAsync();
+            return book;
+        }
+
     }
 }

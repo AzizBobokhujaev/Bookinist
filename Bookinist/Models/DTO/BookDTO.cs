@@ -31,6 +31,8 @@ namespace Bookinist.Models.DTO
         [Required]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        [Display(Name = "Статус")]
+        public bool Status { get; set; }
         public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public int UserId { get; set; }
         public DateTime CreatedAt { get; set; }

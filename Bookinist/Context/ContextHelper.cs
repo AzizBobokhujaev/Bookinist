@@ -21,6 +21,15 @@ namespace Bookinist.Context
                 };
                 await roleManager.CreateAsync(adminRole);
             }
+            if (!roleManager.Roles.Where(p=>p.NormalizedName.Equals("User")).Any())
+            {
+                var userRole = new IdentityRole<int>
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                };
+                await roleManager.CreateAsync(userRole);
+            }
             if (!userManager.Users.Where(p=>p.UserName.Equals("Admin")).Any())
             {
                 var adminUser = new User

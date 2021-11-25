@@ -1,17 +1,18 @@
 ﻿@model List<Bookinist.Models.DTO.BookDTO>
-<br />
-<h1 style="display:flex; justify-content:center; align-items:center; color:white">Books</h1>
-<br />
-<table class="table table-dark">
+
+<h5 class="pt-3" style="color:white">Books</h5>
+
+<table class="table table-dark" style="">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
             <th>BookName</th>
             <th>AuthorName</th>
             <th>Price</th>
-            <th>ShortDescreption</th>
+            @*<th>ShortDescreption</th>*@
             <th>Category</th>
             <th>OwnerName</th>
+            <th>Status</th>
             <th></th>
             <th></th>
         </tr>
@@ -24,9 +25,10 @@
             <td>@book.Name</td>
             <td>@book.Author</td>
             <td>@book.Price</td>
-            <td>@book.ShortDesc</td>
+            @*<td>@book.ShortDesc</td>*@
             <td>@book.CategoryName</td>
             <th>@book.UserName</th>
+            <th>@book.Status</th>
             <td><a class="btn btn-info" href="~/Book/Edit?id=@book.Id">Edit</a></td>
             <td><a class="btn btn-danger" href="~/Book/Delete?id=@book.Id">Delete</a></td>
         </tr>

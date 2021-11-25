@@ -1,0 +1,41 @@
+﻿@model List<Bookinist.Models.DTO.BookDTO>
+<br />
+<h5 class="pt-3" style="color:white">My Books</h5>
+<br />
+<table class="table table-dark">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>BookName</th>
+            <th>AuthorName</th>
+            <th>Price</th>
+            <th>ShortDescreption</th>
+            <th>Category</th>
+            <th>OwnerName</th>
+            <th>Status</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.Price</td>
+                <td>@book.ShortDesc</td>
+                <td>@book.CategoryName</td>
+                <td>@book.UserName</td>
+                @if (book.Status==true)
+                {
+                    <td class="text-success">Опубликован</td>
+                }
+                else
+                {
+                    <td class="text-danger">На рассмотрениии</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
