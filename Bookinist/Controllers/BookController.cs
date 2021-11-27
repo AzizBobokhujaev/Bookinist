@@ -181,12 +181,26 @@ namespace Bookinist.Controllers
             book.ShortDesc = model.ShortDesc;
             book.LongDesc = model.LongDesc;
             book.CategoryId = model.CategoryId;
-            book.Status = model.Status;
+            if (User.IsInRole("Admin"))
+            {
+                book.Status = model.Status;
+            }
+            else
+            {
+                book.Status = false;
+            }
             book.UpdatedAt = DateTime.Now;
 
             await _bookinistContext.SaveChangesAsync(token);
 
-            return RedirectToAction("Home");
+            if (User.IsInRole("User"))
+            {
+                return RedirectToAction("GetMyBooks");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
@@ -226,6 +240,30 @@ namespace Bookinist.Controllers
                 UpdatedAt = p.UpdatedAt
             }).ToListAsync();
             return book;
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var book = await _bookinistContext.Books.FindAsync(id);
+            if (book == null)
+            {
+                return RedirectToAction("Home");
+            }
+            var result = new BookDTO
+            {
+                Id = book.Id,
+                Name = book.Name,
+                Author = book.Author,
+                Price = book.Price,
+                ShortDesc = book.ShortDesc,
+                LongDesc = book.LongDesc,
+                UserId = book.UserId,
+                Status = book.Status,
+                CategoryId = book.CategoryId,
+                Categories = await _bookinistContext.Categories
+                    .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name }).ToListAsync()
+            };
+            return View(result);
         }
 
     }

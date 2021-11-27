@@ -9,8 +9,6 @@ namespace Bookinist.Models.Entity
 {
     public class User:IdentityUser<int>
     {
-        public decimal Balance { get; set; }
-
         public virtual ICollection<Book> Books { get; set; } 
     }
 }

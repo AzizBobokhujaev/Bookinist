@@ -26,8 +26,15 @@ using Bookinist.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "D:\alif C#\GraduationProj\Bookinist\Bookinist\Views\_ViewImports.cshtml"
+using Bookinist.Models.Entity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7091c65830b0329e613be026ede8a57552863778", @"/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"47b1e2a72bf0bf50ce2144dfaf04f64c111bd3a9", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9f5b64a5a96312a9b76827a6e59cab65d7f757dc", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

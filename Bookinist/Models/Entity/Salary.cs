@@ -14,10 +14,12 @@ namespace Bookinist.Models.Entity
         public string BookName { get; set; }
         public int BookId { get; set; }
         public int Price { get; set; }
+        public int SalaesmanId { get; set; }
+        public string SalesmanName { get; set; }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         [ForeignKey("BookId")]
-        public virtual Book Book { get; set; }
+        public virtual Book Books { get; set; }
         [ForeignKey("CustomerId")]
         public virtual User User { get; set; }
     }

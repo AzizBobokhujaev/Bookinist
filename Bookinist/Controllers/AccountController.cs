@@ -30,6 +30,25 @@ namespace Bookinist.Controllers
             var result = await _context.Users.ToListAsync();
             return View(result);
         }
+        public async Task<IActionResult> UserInfo()
+        {
+            var user = await GetUser();
+            return View(user);
+        }
+        [NonAction]
+        public async Task<List<User>> GetUser()
+        {
+            var user = await _context.Users.Select(p => new User
+            {
+                Id = p.Id,
+                UserName = p.UserName,
+                Email = p.Email,
+                PhoneNumber = p.PhoneNumber,
+
+
+            }).Where(p=>p.UserName==User.Identity.Name).ToListAsync();
+            return user;
+        }
 
         [HttpGet]
         public IActionResult Login()
@@ -69,7 +88,6 @@ namespace Bookinist.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 PhoneNumber=model.PhoneNumber,
-                Balance = 1000,
                 
             },model.Password);
             if (!result.Succeeded)
@@ -117,7 +135,6 @@ namespace Bookinist.Controllers
 
             user.UserName = model.UserName;
             user.NormalizedUserName = model.UserName.ToUpper();
-            user.Balance = model.Balance;
             user.PhoneNumber = model.PhoneNumber;
             user.Email = model.Email;
             user.NormalizedEmail = model.Email.ToUpper();

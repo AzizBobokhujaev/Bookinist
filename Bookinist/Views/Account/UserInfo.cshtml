@@ -1,0 +1,23 @@
+﻿@model List<Bookinist.Models.Entity.User>
+<br />
+<table class="table table-bordered" style="width:200px; border:1px solid #fff; border-radius:5px;">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th class="text-white">Id</th><td class="text-white">@item.Id</td>
+        </tr>
+        <tr>
+            <th class="text-white">Логин</th><td class="text-white">@item.UserName</td>
+            
+        </tr>
+        <tr>
+            <th class="text-white">Номер телефона</th>
+            <td class="text-white">@item.PhoneNumber</td>
+            
+        </tr>
+        <tr>
+            <th class="text-white">Электронный адрес</th>
+            <td class="text-white">@item.Email</td>
+        </tr>
+    }
+</table>

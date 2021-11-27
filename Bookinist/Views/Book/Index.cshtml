@@ -6,13 +6,13 @@
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
-            <th>BookName</th>
-            <th>AuthorName</th>
-            <th>Price</th>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Цена</th>
             @*<th>ShortDescreption</th>*@
-            <th>Category</th>
-            <th>OwnerName</th>
-            <th>Status</th>
+            <th>Категория</th>
+            <th>Владелец</th>
+            <th>Статус</th>
             <th></th>
             <th></th>
         </tr>
@@ -28,9 +28,16 @@
             @*<td>@book.ShortDesc</td>*@
             <td>@book.CategoryName</td>
             <th>@book.UserName</th>
-            <th>@book.Status</th>
-            <td><a class="btn btn-info" href="~/Book/Edit?id=@book.Id">Edit</a></td>
-            <td><a class="btn btn-danger" href="~/Book/Delete?id=@book.Id">Delete</a></td>
+            @if (book.Status == true)
+            {
+                <td class="text-success">Опубликовано</td>
+            }
+            else
+            {
+                <td class="text-danger">На рассмотрении</td>
+            }
+            <td><a class="btn btn-info" href="~/Book/Edit?id=@book.Id">Изменить</a></td>
+            <td><a class="btn btn-danger" href="~/Book/Delete?id=@book.Id">Удалить</a></td>
         </tr>
         }
     </tbody>
