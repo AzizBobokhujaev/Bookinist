@@ -3,13 +3,15 @@
     ViewData["Title"] = "Bookinist Home";
 }
 <br />
+
 <div class="row">
     @foreach (var book in Model)
     {
         <div class="col-md-3 col-xs-12 col-lg-4">
-            <div class="card bg-dark" style="height:250px; padding:10px; margin-top:30px;">
+            <div class="card bg-dark" style="height:453px; display:flex; align-items:center; justify-content:center; padding:10px; margin-top:30px; text-align:center;">
                 <div class="card-body">
-                    <h5 class="card-title text-info">Название: @book.Name</h5>
+                    <img src="@Url.Content("~/Image/" +book.CreatedAt.ToString()+".jpg")" type="jpg/mpeg" id="@book.Id" style="width:180px; height:250px; align-items:center;" />
+                    <h5 class="card-title text-info" style="text-align:center;">@book.Name</h5>
                     <h6 class="card-text text-white">Автор: @book.Author</h6>
                     <p class="card-text text-white">Цена: @book.Price TJS</p>
                     <a class="btn btn-info" href="~/Book/Details?id=@book.Id">Подробно</a>

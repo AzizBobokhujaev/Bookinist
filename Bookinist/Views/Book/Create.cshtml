@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Price" style="color:white"></label>
-                <input asp-for="Price" class="form-control" type="number"/>
+                <input asp-for="Price" class="form-control" type="number" />
             </div>
             <div class="form-group">
                 <label asp-for="ShortDesc" style="color:white"></label>
@@ -33,6 +33,9 @@
             <div class="form-group">
                 <label asp-for="CategoryId" style="color:white"></label>
                 <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="file" name="file" class="text-white" />
             </div>
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>

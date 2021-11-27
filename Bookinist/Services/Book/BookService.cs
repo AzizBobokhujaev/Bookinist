@@ -70,7 +70,7 @@ namespace Bookinist.Services.Book
             var book = _mapper.Map<Bookinist.Models.Entity.Book>(model);
             book.Image = string.IsNullOrEmpty(fileName) ? book.Image : fileName;
 
-            book.UpdatedAt = DateTime.Now;
+            book.UpdatedAt = DateTime.Now.ToString();
             _context.Books.Update(book);
 
             await _context.SaveChangesAsync();

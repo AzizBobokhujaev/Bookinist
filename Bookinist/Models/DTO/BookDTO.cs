@@ -21,6 +21,9 @@ namespace Bookinist.Models.DTO
         [Display(Name = "Цена")]
         [Required]
         public decimal Price { get; set; }
+        [Display(Name = "Картинка")]
+        [DataType(DataType.Upload)]
+        public string Image { get; set; }
         [Display(Name = "Краткое описание ")]
         [Required]
         public string ShortDesc { get; set; }
@@ -35,11 +38,9 @@ namespace Bookinist.Models.DTO
         public bool Status { get; set; }
         public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public int UserId { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
         public string ImageName { get; set; }
-        [Display(Name = "Выберите картинку:")]
-        public IFormFile ImageFile { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public string UpdatedAt { get; set; }
 
         public string UserName { get; set; }
     }

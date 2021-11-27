@@ -22,11 +22,12 @@ namespace Bookinist.Controllers
     public class BookController:Controller
     {
         private readonly BookinistContext _bookinistContext;
+        private IHostingEnvironment _env;
 
-        public BookController(BookinistContext bookinistContext)
+        public BookController(BookinistContext bookinistContext, IHostingEnvironment env)
         {
             _bookinistContext = bookinistContext;
-            
+            _env = env;            
         }
         [HttpGet]
         public async Task<IActionResult> Home()
@@ -100,7 +101,7 @@ namespace Bookinist.Controllers
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(BookDTO model)
+        public async Task<IActionResult> Create(BookDTO model,IFormFile file)
         {
             if (!ModelState.IsValid)
             {
@@ -112,17 +113,28 @@ namespace Bookinist.Controllers
 
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            string filename = DateTime.Now.ToString("dd/MM/yy/HH/mm/ss") + ".jpg";
+            var dir = _env.WebRootPath;
+            var fullpath = Path.Combine(dir, "Image", filename);
+
+
+            using (var fileStream = new FileStream(Path.Combine(dir, "Image", filename), FileMode.Create, FileAccess.Write))
+            {
+                file.CopyTo(fileStream);
+            }
+
             var book = new Book
             {
                 Name = model.Name,
                 Author = model.Author,
                 Price = model.Price,
+                Image = fullpath,
                 CategoryId = model.CategoryId,
                 ShortDesc = model.ShortDesc,
                 LongDesc = model.LongDesc,
                 Status = false,
                 UserId = int.Parse(currentUserId),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now.ToString("dd/MM/yy/HH/mm/ss")
             };
 
             _bookinistContext.Books.Add(book);
@@ -189,7 +201,7 @@ namespace Bookinist.Controllers
             {
                 book.Status = false;
             }
-            book.UpdatedAt = DateTime.Now;
+            book.UpdatedAt = DateTime.Now.ToString("dd/MM/yy/HH/mm/ss");
 
             await _bookinistContext.SaveChangesAsync(token);
 

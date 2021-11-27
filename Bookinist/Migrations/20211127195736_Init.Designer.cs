@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookinist.Migrations
 {
     [DbContext(typeof(BookinistContext))]
-    [Migration("20211117143109_Initial")]
-    partial class Initial
+    [Migration("20211127195736_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,8 @@ namespace Bookinist.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CreatedAt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -52,8 +52,11 @@ namespace Bookinist.Migrations
                     b.Property<string>("ShortDesc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedAt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -80,6 +83,48 @@ namespace Bookinist.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Детектив"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Фантастика"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Приключения"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Роман"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Научная книга"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Фольклор"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Юмор"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Справочная книга"
+                        });
                 });
 
             modelBuilder.Entity("Bookinist.Models.Entity.User", b =>
@@ -91,9 +136,6 @@ namespace Bookinist.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

@@ -21,7 +21,6 @@ namespace Bookinist.Services.Mapper
                 .ForMember(m => m.Price, option => option.MapFrom(m => m.Price))
                 .ForMember(m => m.Author, option => option.MapFrom(m => m.Author))
                 .ForMember(m => m.Id, option => option.MapFrom(m => m.Id))
-                .ForMember(m => m.ImageFile, option => option.Ignore())
                 .ForMember(m => m.ImageName, option => option.MapFrom(m => m.Image))
                 .ForMember(m => m.CreatedAt, option => option.MapFrom(m => m.CreatedAt))
                 .ForMember(m => m.UpdatedAt, option => option.MapFrom(m => m.UpdatedAt))

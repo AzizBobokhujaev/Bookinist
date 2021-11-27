@@ -22,8 +22,8 @@ namespace Bookinist.Models.Entity
         public string LongDesc { get; set; }
         public bool Status { get; set; }
         public int UserId { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public string CreatedAt { get; set; }
+        public string UpdatedAt { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
