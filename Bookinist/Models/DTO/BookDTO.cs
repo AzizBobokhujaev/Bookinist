@@ -43,5 +43,6 @@ namespace Bookinist.Models.DTO
         public string UpdatedAt { get; set; }
 
         public string UserName { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

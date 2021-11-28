@@ -63,7 +63,7 @@ namespace Bookinist.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("LoginFail", "Username or password is wrong");
+                ModelState.AddModelError("LoginFail", "Неверный логин или пароль");
                 return View(model);
             }
 

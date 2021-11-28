@@ -226,6 +226,7 @@ namespace Bookinist.Controllers
             await _bookinistContext.SaveChangesAsync();
             return RedirectToAction("Home");
         }
+        //index----------------------------------------------------------------------------------------------
         [HttpGet]
         public async Task<IActionResult> Index(int categoryId)
         {
@@ -252,30 +253,36 @@ namespace Bookinist.Controllers
                 UpdatedAt = p.UpdatedAt
             }).ToListAsync();
             return book;
-        }
+        }//Index----------------------------------------------------------------------------------------------
+        //Details---------------------------------------------------------------------------------------------
 
         public async Task<IActionResult> Details(int id)
         {
-            var book = await _bookinistContext.Books.FindAsync(id);
-            if (book == null)
+            var book = await GetBookForDetails(id);
+            return View(book);
+
+        }
+        [NonAction]
+        public async Task<List<BookDTO>> GetBookForDetails(int id)
+        {
+            var book = await _bookinistContext.Books.Select(p => new BookDTO
             {
-                return RedirectToAction("Home");
-            }
-            var result = new BookDTO
-            {
-                Id = book.Id,
-                Name = book.Name,
-                Author = book.Author,
-                Price = book.Price,
-                ShortDesc = book.ShortDesc,
-                LongDesc = book.LongDesc,
-                UserId = book.UserId,
-                Status = book.Status,
-                CategoryId = book.CategoryId,
-                Categories = await _bookinistContext.Categories
-                    .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name }).ToListAsync()
-            };
-            return View(result);
+                Id = p.Id,
+                Name = p.Name,
+                Author = p.Author,
+                Price = p.Price,
+                ShortDesc = p.ShortDesc,
+                LongDesc = p.LongDesc,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                Status = p.Status,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                CreatedAt = p.CreatedAt,
+                UpdatedAt = p.UpdatedAt,
+                PhoneNumber = p.User.PhoneNumber
+            }).Where(p => p.Id == id).ToListAsync();
+            return book;
         }
 
     }
