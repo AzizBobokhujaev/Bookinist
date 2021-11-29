@@ -158,6 +158,7 @@ namespace Bookinist.Controllers
                 Name = book.Name,
                 Author = book.Author,
                 Price = book.Price,
+                Image=book.Image,
                 ShortDesc = book.ShortDesc,
                 LongDesc = book.LongDesc,
                 UserId = book.UserId,
@@ -192,6 +193,7 @@ namespace Bookinist.Controllers
             book.ShortDesc = model.ShortDesc;
             book.LongDesc = model.LongDesc;
             book.CategoryId = model.CategoryId;
+            book.Image = model.Image;
             if (User.IsInRole("Admin"))
             {
                 book.Status = model.Status;

@@ -25,6 +25,8 @@ namespace Bookinist.Context
         public DbSet<Category> Categories { get; set; }
         public override DbSet<User> Users { get; set; }
 
+        public DbSet<AudioBook>AudioBooks { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

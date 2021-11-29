@@ -19,6 +19,35 @@ namespace Bookinist.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Bookinist.Models.Entity.AudioBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedAt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PathVal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AudioBooks");
+                });
+
             modelBuilder.Entity("Bookinist.Models.Entity.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -322,6 +351,17 @@ namespace Bookinist.Migrations
                     b.ToTable("UserTokens");
                 });
 
+            modelBuilder.Entity("Bookinist.Models.Entity.AudioBook", b =>
+                {
+                    b.HasOne("Bookinist.Models.Entity.User", "User")
+                        .WithMany("AudioBooks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Bookinist.Models.Entity.Book", b =>
                 {
                     b.HasOne("Bookinist.Models.Entity.Category", "Category")
@@ -399,6 +439,8 @@ namespace Bookinist.Migrations
 
             modelBuilder.Entity("Bookinist.Models.Entity.User", b =>
                 {
+                    b.Navigation("AudioBooks");
+
                     b.Navigation("Books");
                 });
 #pragma warning restore 612, 618

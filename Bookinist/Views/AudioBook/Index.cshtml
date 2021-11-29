@@ -1,0 +1,68 @@
+﻿@model List<Bookinist.Models.Entity.AudioBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-white">AudioBooks</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h4 class="text-white">AudioBook</h4>
+            </th>
+
+            <th>
+                <h4 class="text-white">Name</h4>
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    <audio controls preload="auto" onended="endSong(id)" onplay="playSong(id)" class="songs" id="@item.Id">
+                        <source src="@Url.Content("~/Music/"+item.CreatedAt+".mp3")" type="audio/mpeg">
+                    </audio>
+                </td>
+
+                <td class="text-white">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+<script type="text/javascript">
+    function endSong(id)
+    {
+        var i=0;
+        var audioArray = document.getElementsByClassName('songs'); //получить все песни на странице
+        while (audioArray[i].id != id) { i++; }
+        i+= 1;
+        audioArray[i].play();
+    }
+</script>
+
+<script type="text/javascript">
+    function playSong(id)
+    {
+        var i= 0;
+        var audioArray = document.getElementsByClassName('songs');
+        for (i = 0; i < audioArray.length; i++)
+        {
+            if (audioArray[i].id != id) { audioArray[i].pause();}
+        }
+    }
+</script>
