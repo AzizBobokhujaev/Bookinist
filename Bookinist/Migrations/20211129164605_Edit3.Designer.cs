@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookinist.Migrations
 {
     [DbContext(typeof(BookinistContext))]
-    [Migration("20211129133140_Edit2")]
-    partial class Edit2
+    [Migration("20211129164605_Edit3")]
+    partial class Edit3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,8 +40,14 @@ namespace Bookinist.Migrations
                     b.Property<string>("PathVal")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

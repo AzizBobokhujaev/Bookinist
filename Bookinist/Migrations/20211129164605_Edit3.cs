@@ -2,12 +2,12 @@
 
 namespace Bookinist.Migrations
 {
-    public partial class Edit2 : Migration
+    public partial class Edit3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "CreatedAt",
+                name: "UserName",
                 table: "AudioBooks",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -16,7 +16,7 @@ namespace Bookinist.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CreatedAt",
+                name: "UserName",
                 table: "AudioBooks");
         }
     }

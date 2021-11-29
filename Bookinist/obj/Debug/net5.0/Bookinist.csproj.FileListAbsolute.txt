@@ -446,3 +446,5 @@ D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\Book\
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\AudioBook\Create.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\AudioBook\Index.cshtml.g.cs
 D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\AudioBook\Edit.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\AudioBook\GetMyAudioBooks.cshtml.g.cs
+D:\alif C#\GraduationProj\Bookinist\Bookinist\obj\Debug\net5.0\Razor\Views\AudioBook\GetAllAudioBooks.cshtml.g.cs

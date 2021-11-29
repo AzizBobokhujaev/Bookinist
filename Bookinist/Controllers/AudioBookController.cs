@@ -22,7 +22,14 @@ namespace Bookinist.Controllers
             _env = env;
             _context = context;
         }
+        /// /////////////////////////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> Index()
+        {
+            var audiobook = await GetAll();
+            return View(audiobook);
+        }
+        [NonAction]
+        public async Task<List<AudioBook>> GetAll()
         {
             var audiobook = await _context.AudioBooks.Select(p => new AudioBook
             {
@@ -30,11 +37,14 @@ namespace Bookinist.Controllers
                 Name = p.Name,
                 PathVal = p.PathVal,
                 UserId = p.User.Id,
-                Description= p.Description,
-                CreatedAt = p.CreatedAt
-            }).ToListAsync();
-            return View(audiobook);
+                Description = p.Description,
+                CreatedAt = p.CreatedAt,
+                UserName=p.User.UserName,
+                Status=p.Status
+            }).Where(p=>p.Status==true).ToListAsync();
+            return audiobook;
         }
+        // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpGet]
         public IActionResult Create()
@@ -54,37 +64,42 @@ namespace Bookinist.Controllers
             {
                 file.CopyTo(fileStream);
             }
-            
+
 
             //Это создает экземпляр нашей модели песни, сохраняет его как переменную и сохраняет в базе данных
-            var song = new AudioBook {
+            var audioBook = new AudioBook {
                 Name = model.Name,
-                UserId=int.Parse(currentUserId),
-                PathVal = fullpath,  
+                UserId = int.Parse(currentUserId),
+                PathVal = fullpath,
                 Description = model.Description,
+                Status = false,
                 CreatedAt = DateTime.Now.ToString("dd/MM/yy/HH/mm/ss")
             };
 
-            _context.AudioBooks.Add(song);
+            _context.AudioBooks.Add(audioBook);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("GetMyAudioBooks");
         }
+        // //////////////////////////////////////////////////////////////////////////////////////////////
 
         public async Task<IActionResult> Delete(int id)
         {
             var song = await _context.AudioBooks.FindAsync(id);
             _context.AudioBooks.Remove(song);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("GetAllAudioBooks");
+            }
+            else
+            {
+                return RedirectToAction("GetMyAudioBooks");
+            }
         }
         /// ///////////////////////////////////////////////////////////////////////////////////////////////
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
             var song = await _context.AudioBooks.FindAsync(id);
             if (song == null)
@@ -97,29 +112,77 @@ namespace Bookinist.Controllers
         // POST: Songs/Edit/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,PathVal,Description,CreatedAt")] AudioBook song)
+        public async Task<IActionResult> Edit(AudioBook model)
         {
-            if (id != song.Id)
+            var audiobook = await _context.AudioBooks.FindAsync(model.Id);
+            if (audiobook==null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
-
-            if (ModelState.IsValid)
+            audiobook.Name = model.Name;
+            audiobook.Description = model.Description;
+            
+            if (User.IsInRole("Admin"))
             {
-                try
-                {
-                    _context.Update(song);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    throw;
-                }
-                return RedirectToAction(nameof(Index));
+                audiobook.Status = model.Status;
             }
-            return View(song);
+            else
+            {
+                audiobook.Status = false;
+            }
+            await _context.SaveChangesAsync();
+            if (User.IsInRole("User"))
+            {
+                return RedirectToAction("GetMyAudioBooks");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
+        public async Task<IActionResult> GetMyAudioBooks()
+        {
+            var audiobooks = await GetMyBook();
 
+            return View(audiobooks);
+
+        }
+        [NonAction]
+        public async Task<List<AudioBook>> GetMyBook()
+        {
+            var book = await _context.AudioBooks.Select(p => new AudioBook
+            {
+                Id = p.Id,
+                Name = p.Name,
+                
+                Status = p.Status,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                CreatedAt = p.CreatedAt,
+            }).Where(p => p.UserName == User.Identity.Name).ToListAsync();
+            return book;
+        }
+        public async Task<IActionResult> GetAllAudioBooks()
+        {
+            var audiobook = await GetAllAudio();
+            return View(audiobook);
+        }
+        [NonAction]
+        public async Task<List<AudioBook>> GetAllAudio()
+        {
+            var audiobook = await _context.AudioBooks.Select(p => new AudioBook
+            {
+                Id = p.Id,
+                Name = p.Name,
+                PathVal = p.PathVal,
+                UserId = p.User.Id,
+                UserName=p.User.UserName,
+                Description = p.Description,
+                CreatedAt = p.CreatedAt,
+                Status = p.Status
+            }).ToListAsync();
+            return audiobook;
+        }
 
     }
 }

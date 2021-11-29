@@ -4,19 +4,28 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text-white">AudioBooks</h1>
+<h1 class="text-white">Аудиокниги</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                <h4 class="text-white">AudioBook</h4>
+                <h4 class="text-white">Название</h4>
+            </th>
+            <th>
+                <h4 class="text-white">Файл</h4>
             </th>
 
             <th>
-                <h4 class="text-white">Name</h4>
+                <h4 class="text-white">Описание</h4>
             </th>
+            <th>
+                <h4 class="text-white">Время добавления</h4>
+            </th>
+            <th>
+                <h4 class="text-white">Владелец</h4>
 
+            </th>
         </tr>
     </thead>
 
@@ -25,14 +34,22 @@
         {
 
             <tr>
+                <td class="text-white">
+                    @item.Name
+                </td>
                 <td>
                     <audio controls preload="auto" onended="endSong(id)" onplay="playSong(id)" class="songs" id="@item.Id">
                         <source src="@Url.Content("~/Music/"+item.CreatedAt+".mp3")" type="audio/mpeg">
                     </audio>
                 </td>
-
                 <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @item.Description
+                </td>
+                <td class="text-white">
+                    @item.CreatedAt
+                </td>
+                <td class="text-white">
+                    @item.UserName
                 </td>
 
             </tr>
@@ -48,7 +65,7 @@
     function endSong(id)
     {
         var i=0;
-        var audioArray = document.getElementsByClassName('songs'); //получить все песни на странице
+        var audioArray = document.getElementsByClassName('songs'); //получить вс
         while (audioArray[i].id != id) { i++; }
         i+= 1;
         audioArray[i].play();

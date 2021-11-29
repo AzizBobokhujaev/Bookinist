@@ -21,9 +21,9 @@ namespace Bookinist.Controllers
     public class BookController:Controller
     {
         private readonly BookinistContext _bookinistContext;
-        private IHostingEnvironment _env;
+        private IWebHostEnvironment _env;
 
-        public BookController(BookinistContext bookinistContext, IHostingEnvironment env)
+        public BookController(BookinistContext bookinistContext, IWebHostEnvironment env)
         {
             _bookinistContext = bookinistContext;
             _env = env;            
@@ -172,7 +172,7 @@ namespace Bookinist.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(BookDTO model, CancellationToken token)
+        public async Task<IActionResult> Edit(BookDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -204,7 +204,7 @@ namespace Bookinist.Controllers
             }
             book.UpdatedAt = DateTime.Now.ToString("dd/MM/yy/HH/mm/ss");
 
-            await _bookinistContext.SaveChangesAsync(token);
+            await _bookinistContext.SaveChangesAsync();
 
             if (User.IsInRole("User"))
             {

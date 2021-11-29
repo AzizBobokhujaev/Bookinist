@@ -17,10 +17,12 @@ namespace Bookinist.Models.Entity
 
         public string Description { get; set; }
         public string CreatedAt { get; set; }
+        public bool Status { get; set; }
+
 
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-
+        public string UserName { get; internal set; }
     }
 }
