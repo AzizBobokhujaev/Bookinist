@@ -1,7 +1,6 @@
 using Bookinist.Context;
 using Bookinist.Models.DTO;
 using Bookinist.Models.Entity;
-using Bookinist.Services.Book;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,8 +63,7 @@ namespace Bookinist
 
             services.AddControllersWithViews();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<BookService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

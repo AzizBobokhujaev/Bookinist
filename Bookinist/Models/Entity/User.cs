@@ -10,5 +10,6 @@ namespace Bookinist.Models.Entity
     public class User:IdentityUser<int>
     {
         public virtual ICollection<Book> Books { get; set; } 
+        public virtual ICollection<AudioBook> AudioBooks { get; set; }
     }
 }

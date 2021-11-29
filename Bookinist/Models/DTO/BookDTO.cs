@@ -39,7 +39,6 @@ namespace Bookinist.Models.DTO
         public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public int UserId { get; set; }
         public string CreatedAt { get; set; }
-        public string ImageName { get; set; }
         public string UpdatedAt { get; set; }
 
         public string UserName { get; set; }
