@@ -140,6 +140,7 @@ namespace Bookinist.Controllers
                 return RedirectToAction("Index");
             }
         }
+        // //////////////////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> GetMyAudioBooks()
         {
             var audiobooks = await GetMyBook();
@@ -154,7 +155,7 @@ namespace Bookinist.Controllers
             {
                 Id = p.Id,
                 Name = p.Name,
-                
+                Description=p.Description,
                 Status = p.Status,
                 UserId = p.UserId,
                 UserName = p.User.UserName,
